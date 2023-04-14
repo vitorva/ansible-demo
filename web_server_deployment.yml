@@ -1,0 +1,30 @@
+# web_server_deployment.yml
+
+- name: Deploy Web Server
+  hosts: webserver  # Define the target host or hosts in the inventory file
+  become: yes       # Use privilege escalation to execute tasks as root
+
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      become: yes
+
+    - name: Install web server
+      apt:
+        name: nginx   # or apache2 for Apache web server
+        state: present
+      become: yes
+
+    - name: Start and enable web server service
+      service:
+        name: nginx   # or apache2 for Apache web server
+        state: started
+        enabled: yes
+      become: yes
+
+    - name: Configure web page
+      copy:
+        content: "Hello, World!"
+        dest: /var/www/html/index.html
+      become: yes
