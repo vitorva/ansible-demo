@@ -1,0 +1,11 @@
+# web_server_deployment.yml
+
+- name: Deploy Web Server
+  hosts: webserver  # Define the target host or hosts in the inventory file
+  become: yes       # Use privilege escalation to execute tasks as root
+
+  tasks:
+    - name: Run command with sudo
+      become: yes
+      become_method: sudo
+      command: /usr/bin/some_command

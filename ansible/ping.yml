@@ -1,0 +1,12 @@
+# web_server_deployment.yml
+
+- name: Deploy Web Server
+  hosts: webserver  # Define the target host or hosts in the inventory file
+  become: yes       # Use privilege escalation to execute tasks as root
+
+  tasks:
+    - name: Test ping communication with target host
+      gather_facts: false
+      tasks:
+        - name: Ping target host
+          ping:
